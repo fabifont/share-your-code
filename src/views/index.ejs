@@ -1,0 +1,62 @@
+<div class="page">
+  <div class="section header">
+    <h1>Share your code</h1>
+  </div>
+
+  <div class="section content">
+    <br /><br />
+    <label>Paste your code here</label>
+  </div>
+
+  <div class="section content">
+    <br /><br />
+    <form action="/paste" method="POST">
+      <textarea
+        name="code"
+        onkeydown="checkRows(this)"
+        rows="10"
+        required
+        autofocus
+        style="overflow: hidden"
+      ></textarea>
+      <br /><br />
+      <select name="language">
+        <option value="" disabled selected>Choose syntax</option>
+        <% for(language in languages) { %><option value="<%= language %>"
+          ><%= languages[language] %></option
+        ><% } %>
+      </select>
+      <select name="expiry">
+        <option value="" disabled selected>Choose expiry</option>
+        <% for(exp in expiry) { %><option value="<%= exp %>"
+          ><%= expiry[exp] %></option
+        ><% } %>
+      </select>
+      <input type="submit" />
+      <br /><br />
+    </form>
+  </div>
+</div>
+<script>
+  var start = true
+  var startingHeight
+
+  function checkRows(obj) {
+    if (start == true) {
+      startingHeight = obj.scrollHeight
+      start = false
+    }
+    if (obj.scrollHeight > startingHeight) {
+      obj.setAttribute(
+        'style',
+        'height:' + obj.scrollHeight + 'px;overflow-y:hidden;'
+      )
+      obj.addEventListener('input', OnInput, false)
+    }
+  }
+
+  function OnInput() {
+    this.style.height = 'auto'
+    this.style.height = this.scrollHeight + 'px'
+  }
+</script>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="font.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Share</title>
+  </head>
+  <body>
+    <div class="page">
+      <div class="section header">
+        <h1>Share your code</h1>
+      </div>
+
+      <div class="section content">
+        <br /><br />
+        <label>Paste your code here</label>
+      </div>
+
+      <div class="section content">
+        <br /><br />
+        <form action="/paste" method="POST">
+          <textarea
+            name="code"
+            onkeydown="checkRows(this)"
+            rows="10"
+            required
+            autofocus
+            style="overflow: hidden"
+          ></textarea>
+          <br /><br />
+          <select name="language">
+            <option value="" disabled selected>Choose syntax</option>
+          </select>
+          <select name="expiry">
+            <option value="" disabled selected>Choose expiry</option>
+          </select>
+          <input type="submit" />
+          <br /><br />
+        </form>
+      </div>
+    </div>
+
+    <script>
+      var start = true
+      var startingHeight
+
+      function checkRows(obj) {
+        if (start == true) {
+          startingHeight = obj.scrollHeight
+          start = false
+        }
+        if (obj.scrollHeight > startingHeight) {
+          obj.setAttribute(
+            'style',
+            'height:' + obj.scrollHeight + 'px;overflow-y:hidden;'
+          )
+          obj.addEventListener('input', OnInput, false)
+        }
+      }
+
+      function OnInput() {
+        this.style.height = 'auto'
+        this.style.height = this.scrollHeight + 'px'
+      }
+    </script>
+
+    <script>
+      var languages = {
+        html: 'HTML',
+        xml: 'XML',
+        svg: 'SVG',
+        mathml: 'MathML',
+        css: 'CSS',
+        clike: 'C-like',
+        js: 'JavaScript',
+        abap: 'ABAP',
+        abnf: 'Augmented Backus–Naur form',
+        antlr4: 'ANTLR4',
+        g4: 'ANTLR4',
+        apacheconf: 'Apache Configuration',
+        apl: 'APL',
+        aql: 'AQL',
+        arff: 'ARFF',
+        asciidoc: 'AsciiDoc',
+        adoc: 'AsciiDoc',
+        asm6502: '6502 Assembly',
+        aspnet: 'ASP.NET (C#)',
+        autohotkey: 'AutoHotkey',
+        autoit: 'AutoIt',
+        shell: 'Bash',
+        basic: 'BASIC',
+        bbcode: 'BBcode',
+        bnf: 'Backus–Naur form',
+        rbnf: 'Routing Backus–Naur form',
+        csharp: 'C#',
+        cs: 'C#',
+        dotnet: 'C#',
+        cpp: 'C++',
+        cil: 'CIL',
+        coffee: 'CoffeeScript',
+        cmake: 'CMake',
+        csp: 'Content-Security-Policy',
+        'css-extras': 'CSS Extras',
+        django: 'Django/Jinja2',
+        jinja2: 'Django/Jinja2',
+        'dns-zone-file': 'DNS zone file',
+        'dns-zone': 'DNS zone file',
+        dockerfile: 'Docker',
+        ebnf: 'Extended Backus–Naur form',
+        ejs: 'EJS',
+        etlua: 'Embedded Lua templating',
+        erb: 'ERB',
+        fsharp: 'F#',
+        'firestore-security-rules': 'Firestore security rules',
+        ftl: 'FreeMarker Template Language',
+        gcode: 'G-code',
+        gdscript: 'GDScript',
+        gedcom: 'GEDCOM',
+        glsl: 'GLSL',
+        gml: 'GameMaker Language',
+        gamemakerlanguage: 'GameMaker Language',
+        graphql: 'GraphQL',
+        hs: 'Haskell',
+        hcl: 'HCL',
+        http: 'HTTP',
+        hpkp: 'HTTP Public-Key-Pins',
+        hsts: 'HTTP Strict-Transport-Security',
+        ichigojam: 'IchigoJam',
+        inform7: 'Inform 7',
+        javadoc: 'JavaDoc',
+        javadoclike: 'JavaDoc-like',
+        javastacktrace: 'Java stack trace',
+        jq: 'JQ',
+        jsdoc: 'JSDoc',
+        'js-extras': 'JS Extras',
+        'js-templates': 'JS Templates',
+        json: 'JSON',
+        jsonp: 'JSONP',
+        json5: 'JSON5',
+        latex: 'LaTeX',
+        tex: 'TeX',
+        context: 'ConTeXt',
+        lilypond: 'LilyPond',
+        ly: 'LilyPond',
+        emacs: 'Lisp',
+        elisp: 'Lisp',
+        'emacs-lisp': 'Lisp',
+        lolcode: 'LOLCODE',
+        md: 'Markdown',
+        'markup-templating': 'Markup templating',
+        matlab: 'MATLAB',
+        mel: 'MEL',
+        moon: 'MoonScript',
+        n1ql: 'N1QL',
+        n4js: 'N4JS',
+        n4jsd: 'N4JS',
+        'nand2tetris-hdl': 'Nand To Tetris HDL',
+        nasm: 'NASM',
+        nginx: 'nginx',
+        nsis: 'NSIS',
+        objectivec: 'Objective-C',
+        ocaml: 'OCaml',
+        opencl: 'OpenCL',
+        parigp: 'PARI/GP',
+        objectpascal: 'Object Pascal',
+        pcaxis: 'PC-Axis',
+        px: 'PC-Axis',
+        php: 'PHP',
+        phpdoc: 'PHPDoc',
+        'php-extras': 'PHP Extras',
+        plsql: 'PL/SQL',
+        powershell: 'PowerShell',
+        properties: '.properties',
+        protobuf: 'Protocol Buffers',
+        py: 'Python',
+        q: 'Q (kdb+ database)',
+        jsx: 'React JSX',
+        tsx: 'React TSX',
+        renpy: "Ren'py",
+        rest: 'reST (reStructuredText)',
+        'robot-framework': 'Robot Framework',
+        robot: 'Robot Framework',
+        rb: 'Ruby',
+        sas: 'SAS',
+        sass: 'Sass (Sass)',
+        scss: 'Sass (Scss)',
+        'shell-session': 'Shell session',
+        solidity: 'Solidity (Ethereum)',
+        soy: 'Soy (Closure Template)',
+        sparql: 'SPARQL',
+        rq: 'SPARQL',
+        'splunk-spl': 'Splunk SPL',
+        sqf: 'SQF: Status Quo Function (Arma 3)',
+        sql: 'SQL',
+        tap: 'TAP',
+        toml: 'TOML',
+        tt2: 'Template Toolkit 2',
+        trig: 'TriG',
+        ts: 'TypeScript',
+        't4-cs': 'T4 Text Templates (C#)',
+        t4: 'T4 Text Templates (C#)',
+        't4-vb': 'T4 Text Templates (VB)',
+        't4-templating': 'T4 templating',
+        vbnet: 'VB.Net',
+        vhdl: 'VHDL',
+        vim: 'vim',
+        'visual-basic': 'Visual Basic',
+        vb: 'Visual Basic',
+        wasm: 'WebAssembly',
+        wiki: 'Wiki markup',
+        xeoracube: 'XeoraCube',
+        xojo: 'Xojo (REALbasic)',
+        xquery: 'XQuery',
+        yaml: 'YAML',
+        yml: 'YAML'
+      }
+
+      var expiry = {
+        '1h': '1 hour',
+        '12h': '12 hours',
+        '1d': '1 day',
+        '1m': '1 month',
+        '1y': '1 year',
+        'n': 'No expiry'
+      }
+
+      var selectExpiry = document.getElementsByName('expiry')[0]
+      for (var exp in expiry) {
+        var option = document.createElement('option')
+        option.value = exp
+        option.text = expiry[exp]
+        selectExpiry.appendChild(option)
+      }
+
+      var selectLanguage = document.getElementsByName('language')[0]
+      for (var language in languages) {
+        var option = document.createElement('option')
+        option.value = language
+        option.text = languages[language]
+        selectLanguage.appendChild(option)
+      }
+    </script>
+  </body>
+</html>
