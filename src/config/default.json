@@ -1,11 +1,10 @@
 {
   "expiry": {
-    "1h": "1 hour",
-    "12h": "12 hours",
-    "1d": "1 day",
-    "1m": "1 month",
-    "1y": "1 year",
-    "n": "No expiry"
+    "3600": "1 hour",
+    "86400": "12 hours",
+    "604800": "1 day",
+    "2592000": "1 month",
+    "31536000": "1 year"
   },
   "languages": {
     "abap": "ABAP",

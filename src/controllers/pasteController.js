@@ -1,19 +1,17 @@
 // Get Data Models
 const Paste = require('../models/Paste')
 
-exports.create = async req => {
+exports.create = async (req, res) => {
   try {
     let paste = new Paste({
       paste: req.body.code,
-      expiry:
-        req.body.expiry == 'n'
-          ? null
-          : new Date(Date.now + req.body.expire * 1000)
+      expiresAt: new Date(Date.now() + req.body.expiry * 1000)
     })
 
     await paste.save()
-
-    //res.redirect(req.origin + '/' + paste.id + '?' + req.body.language)
+    res.redirect(
+      req.get('origin') + '/paste/' + paste.id + '?' + req.body.language
+    )
   } catch (err) {
     throw new Error(err)
   }
@@ -24,13 +22,11 @@ exports.view = async (req, res) => {
     const paste = await Paste.findById(req.params.id).exec()
     const language = Object.keys(req.query)[0]
 
-    if (language) {
-      //renderizzo highlight
-    } else {
-      res.type = 'text/plain'
-      res.body = paste.paste
-    }
+    await res.render('paste', {
+      paste: paste.paste,
+      lang: language
+    })
   } catch (err) {
-    throw new Error('404, Paste Not Found')
+    throw new Error(err)
   }
 }

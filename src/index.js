@@ -2,7 +2,6 @@
 const express = require('./server.js')
 
 // Import external dependancies
-const path = require('path')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const expressLayouts = require('express-ejs-layouts')
@@ -19,7 +18,7 @@ app.set('views', __dirname + '/views')
 app.set('view engine', 'ejs')
 app.use(expressLayouts)
 
-app.use('/css', express.static(__dirname + '/css'))
+app.use(express.static('static'))
 app.use(bodyParser.urlencoded({ extended: false }))
 
 // Routes

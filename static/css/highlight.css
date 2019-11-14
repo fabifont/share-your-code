@@ -1,0 +1,44 @@
+html,
+body,
+.code-toolbar,
+pre,
+code {
+  height: 100%;
+}
+pre[class*='language-'] {
+  margin: 0;
+}
+pre[class*='language-']::before,
+pre[class*='language-']::after {
+  display: none;
+}
+.code-toolbar > .toolbar {
+  top: 1rem;
+  right: 1rem;
+  opacity: 1;
+}
+pre[class*='language-'] > code {
+  border-left: none;
+}
+.code-toolbar > .toolbar a,
+.code-toolbar > .toolbar button,
+.code-toolbar > .toolbar span {
+  padding: 0.25rem 1rem 0.5rem;
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: #0275d8;
+  border-color: #0275d8;
+  border-radius: 0.3rem;
+  opacity: 0.5;
+  transition: opacity 0.3s ease-in-out;
+}
+.code-toolbar > .toolbar a:hover,
+.code-toolbar > .toolbar a:focus,
+.code-toolbar > .toolbar button:hover,
+.code-toolbar > .toolbar button:focus,
+.code-toolbar > .toolbar span:hover,
+.code-toolbar > .toolbar span:focus {
+  color: #fff;
+  background-color: #025aa5;
+  opacity: 1;
+}
