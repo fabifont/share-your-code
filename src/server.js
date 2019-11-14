@@ -6,7 +6,7 @@ const mongoose = require('mongoose')
 
 // Declare the DB URI
 const DATABASE_URI =
-  process.env.DATABASE_URI || 'mongodb://127.0.0.1:27017/share-your-code'
+  process.env.DATABASE_URI || 'mongodb://mongo:27017/share-your-code'
 
 // Connect to DB
 mongoose
