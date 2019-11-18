@@ -19,7 +19,7 @@ app.set('view engine', 'ejs')
 app.use(expressLayouts)
 
 app.use(express.static('static'))
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ limit:'5mb', extended: true, parameterLimit:50000 }))
 
 // Routes
 app.use('/', require('./routes/index'))
