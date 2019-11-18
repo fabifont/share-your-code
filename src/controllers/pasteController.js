@@ -5,6 +5,7 @@ exports.create = async (req, res) => {
   try {
     let paste = new Paste({
       paste: req.body.code,
+      language: req.body.language,
       expiresAt: new Date(Date.now() + req.body.expiry * 1000)
     })
 
@@ -22,10 +23,13 @@ exports.view = async (req, res) => {
     const paste = await Paste.findById(req.params.id).exec()
     const language = Object.keys(req.query)[0]
 
-    await res.render('paste', {
-      paste: paste.paste,
-      lang: language
-    })
+    if (paste == null || (paste.language != language)) res.render('error', { status: 404, url: req.url })
+    else {
+      await res.render('paste', {
+        paste: paste.paste,
+        lang: language
+      })
+    }
   } catch (err) {
     throw new Error(err)
   }

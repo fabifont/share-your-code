@@ -6,6 +6,7 @@ const pasteSchema = new mongoose.Schema(
   {
     _id: { type: String, default: shortid.generate },
     paste: { type: String },
+    language: { type: String },
     expiresAt: {
       type: Date,
       expires: 0,
