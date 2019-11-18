@@ -3,6 +3,9 @@ const Paste = require('../models/Paste')
 
 exports.create = async (req, res) => {
   try {
+    if (req.body.language == undefined) req.body.language = ''
+    if (req.body.expiry == undefined) req.body.expiry = 604800
+
     let paste = new Paste({
       paste: req.body.code,
       language: req.body.language,
@@ -21,9 +24,12 @@ exports.create = async (req, res) => {
 exports.view = async (req, res) => {
   try {
     const paste = await Paste.findById(req.params.id).exec()
-    const language = Object.keys(req.query)[0]
+    let language = Object.keys(req.query)[0]
 
-    if (paste == null || (paste.language != language)) res.render('error', { status: 404, url: req.url })
+    if (language == undefined) language = ''
+
+    if (paste == null || paste.language != language)
+      res.render('error', { status: 404, url: req.url })
     else {
       await res.render('paste', {
         paste: paste.paste,
