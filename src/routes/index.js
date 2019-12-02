@@ -5,7 +5,8 @@ const config = require('../config/default')
 router.get('/', async (req, res) => {
   await res.render('index', {
     languages: config.languages,
-    expiry: config.expiry
+    expiry: config.expiry,
+    errors: []
   })
 })
 

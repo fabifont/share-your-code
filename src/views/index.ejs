@@ -1,46 +1,42 @@
-<div class="page">
-  <div class="section header">
-    <h1>Share your code</h1>
-  </div>
-
-  <div class="section content">
-    <br /><br />
-    <label>Paste your code here</label>
-  </div>
-
-  <div class="section content">
-    <br /><br />
-    <form action="/paste" method="POST">
-      <textarea
-        name="code"
-        onkeydown="checkRows(this)"
-        rows="10"
-        required
-        autofocus
-        style="overflow: hidden"
-      ></textarea>
-      <br /><br />
-      <select name="language">
-        <option value="" disabled selected>Choose syntax</option>
-        <% for(language in languages) { %><option value="<%= language %>"
-          ><%= languages[language] %></option
-        ><% } %>
-      </select>
-      <select name="expiry">
-        <option value="" disabled selected>Choose expiry</option>
-        <% for(exp in expiry) { %><option value="<%= exp %>"
-          ><%= expiry[exp] %></option
-        ><% } %>
-      </select>
-      <input type="submit" />
-      <br /><br />
-    </form>
-  </div>
-</div>
+<form action="/paste" method="POST">
+  <fieldset class="form-group">
+    <label class="bmd-label-floating" for="codeArea">Paste your code here</label>
+    <textarea
+    name="code"
+    id="codeArea"
+    onkeydown="checkRows(this)"
+    rows="10"
+    autofocus
+    class="form-control paste-area mb-2 shadow-none"
+    ></textarea>
+  </fieldset>
+  <fieldset class="form-inline">
+    <select class="form-control col-sm-12 col-md-2 mr-sm-2 mb-2 shadow-none" name="language">
+      <option disabled selected value="">Choose syntax</option>
+      <% for(language in languages) { %>
+        <option class="dropdown-item" value="<%= language %>"><%= languages[language] %></option>
+      <% } %>
+    </select>
+    <select class="form-control col-sm-12 col-md-2 mr-sm-2 mb-2 shadow-none" name="expiry">
+      <option disabled selected value="">Choose expiry</option>
+      <% for(exp in expiry) { %>
+        <option value="<%= exp %>"><%= expiry[exp] %></option>
+      <% } %>
+    </select>
+    <input type="submit" class="btn btn-primary" value="SUBMIT"/>
+  </fieldset>
+</form>
+<% if (errors) { %>
+  <ul class="list-group">
+    <% for (error in errors) { %>
+      <li class="list-group-item"><%= error %></li>
+    <% } %>
+  </ul>
+<% } %>
 <script>
   var start = true
   var startingHeight
-
+  
   function checkRows(obj) {
     if (start == true) {
       startingHeight = obj.scrollHeight
@@ -48,13 +44,13 @@
     }
     if (obj.scrollHeight > startingHeight) {
       obj.setAttribute(
-        'style',
-        'height:' + obj.scrollHeight + 'px;overflow-y:hidden;'
+      'style',
+      'height:' + obj.scrollHeight + 'px;overflow-y:hidden;'
       )
       obj.addEventListener('input', OnInput, false)
     }
   }
-
+  
   function OnInput() {
     this.style.height = 'auto'
     this.style.height = this.scrollHeight + 'px'
