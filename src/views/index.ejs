@@ -10,7 +10,7 @@
 
   <div class="section content">
     <br /><br />
-    <form action="/paste" method="POST">
+    <form action="/paste" method="POST" id="captcha">
       <textarea
         name="code"
         onkeydown="checkRows(this)"
@@ -32,15 +32,26 @@
           ><%= expiry[exp] %></option
         ><% } %>
       </select>
+      <%-captcha%>
       <input type="submit" />
       <br /><br />
     </form>
   </div>
 </div>
+
+<script>
+  function cb(token) {
+    var input = document.createElement('input')
+    input.setAttribute('type', 'hidden')
+    input.setAttribute('name', 'g-recaptcha-response')
+    input.setAttribute('value', token)
+    document.getElementById('captcha').appendChild(input)
+  }
+</script>
+
 <script>
   var start = true
   var startingHeight
-
   function checkRows(obj) {
     if (start == true) {
       startingHeight = obj.scrollHeight
@@ -54,7 +65,6 @@
       obj.addEventListener('input', OnInput, false)
     }
   }
-
   function OnInput() {
     this.style.height = 'auto'
     this.style.height = this.scrollHeight + 'px'
