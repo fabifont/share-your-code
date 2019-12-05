@@ -6,3 +6,6 @@ package-lock.json
 
 data/*
 !data/db/
+
+# Ignore keys.json
+src/config/keys.json
